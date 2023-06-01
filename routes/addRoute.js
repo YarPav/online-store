@@ -1,19 +1,28 @@
 const {Router} = require('express');
 const Course = require('../models/courseModel');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const router = Router();
-router.get('/', (req, res) => {
+router.get('/', authMiddleware, (req, res) => {
     res.render('add', {
         title: 'Add course',
         isAdd: true
     });
 });
 
-router.post('/', async (req, res) => {
-    console.log(req.body);
-    const course = new Course(req.body.title, req.body.price, req.body.image);
-    await course.save();
-    res.redirect('/courses');
+router.post('/', authMiddleware, async (req, res) => {
+    const course = new Course({
+        title: req.body.title,
+        price: req.body.price,
+        image: req.body.image,
+        userId: req.user
+    });
+    try {
+        await course.save();
+        res.redirect('/courses');
+    } catch (e) {
+        console.log(e);
+    }
 });
 
 module.exports = router;

@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6"><a class="active" href="#login">Login</a></li>
+            <li class="tab col s6"><a href="#register">Registration</a></li>
+        </ul>
+    </div>
+    <div id="login" class="col s6 offset-s3">
+        <h1>Login</h1>
+        {{#if loginError}}
+            <p class="red darken-4">{{loginError}}</p>
+        {{/if}}
+        <form action="/auth/login" method="post">
+            <div class="input-field">
+                <input placeholder="Email" id="email" name="email" type="email" class="validate" required>
+                <label for="email">Email</label>
+                <span class="helper-text" data-error="Email must be filled"></span>
+            </div>
+            <div class="input-field">
+                <input placeholder="Password" id="password" name="password" type="password" class="validate" required>
+                <label for="password">Password</label>
+                <span class="helper-text" data-error="Password must be filled"></span>
+            </div>
+            <input type="hidden" name="_csrf" value="{{ csrf }}">
+            <button class="btn btn-primary">Login</button>
+        </form>
+    </div>
+    <div id="register" class="col s6 offset-s3">
+        <h1>Registration</h1>
+        {{#if registerError}}
+            <p class="red darken-4">{{registerError}}</p>
+        {{/if}}
+        <form action="/auth/register" method="post">
+            <div class="input-field">
+                <input placeholder="Email" id="r-email" name="email" type="email" class="validate" required>
+                <label for="r-email">Email</label>
+                <span class="helper-text" data-error="Email must be filled"></span>
+            </div>
+            <div class="input-field">
+                <input placeholder="Name" id="r-name" name="name" type="text">
+                <label for="r-name">Name</label>
+            </div>
+            <div class="input-field">
+                <input placeholder="Password" id="r-password" name="password" type="password" class="validate" required>
+                <label for="r-password">Password</label>
+                <span class="helper-text" data-error="Password must be filled"></span>
+            </div>
+            <div class="input-field">
+                <input placeholder="Re-password" id="r-repassword" name="rePassword" type="password" class="validate" required>
+                <label for="r-repassword">Re-password</label>
+                <span class="helper-text" data-error="Password must be filled"></span>
+            </div>
+            <input type="hidden" name="_csrf" value="{{ csrf }}">
+            <button class="btn btn-primary">Registration</button>
+        </form>
+    </div>
+</div>

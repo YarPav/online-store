@@ -15,6 +15,9 @@ if ($cart) {
       if (e.target.classList.contains('js-remove')) {
          fetch('/cart/remove/' + e.target.dataset.id, {
             method: 'delete',
+             headers: {
+                'X-XSRF-TOKEN': e.target.dataset.csrf
+             }
          }).then(res => res.json())
              .then(cart => {
                 if (cart.courses.length) {
@@ -36,7 +39,28 @@ if ($cart) {
                 } else {
                    $cart.innerHTML = '<p>Cart is empty</p>'
                 }
-             })
+             });
       }
    });
 }
+
+// Modify date format
+
+const toDate = (date) => {
+    return new Intl.DateTimeFormat('ru-RU', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).format(new Date(date));
+}
+
+document.querySelectorAll('.js-date').forEach(node => {
+    node.textContent = toDate(node.textContent);
+});
+
+// Init Materialize tabs
+
+M.Tabs.init(document.querySelectorAll('.tabs'));

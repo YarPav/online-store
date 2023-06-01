@@ -17,5 +17,11 @@
         <span class="helper-text" data-error="wrong"></span>
     </div>
     <input type="hidden" name="id" value="{{ course.id }}">
-    <button class="btn btn-primary">Edit</button>
+    <input type="hidden" name="_csrf" value="{{ csrf }}">
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+<form action="/courses/remove" method="post">
+    <input type="hidden" name="id" value="{{ course.id }}">
+    <input type="hidden" name="_csrf" value="{{ csrf }}">
+    <button type="submit" class="btn red darken-4">Remove</button>
 </form>
